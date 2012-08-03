@@ -5,8 +5,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 import com.shine.framework.core.util.ReflectionUtil;
-import com.shine.framework.core.util.FileUtil;
 import com.shine.framework.core.util.ZipUtil;
+import com.shine.framework.file.FileUtil;
 
 /**
  * jar utilities

@@ -1,4 +1,4 @@
-package com.shine.framework.core.util;
+package com.shine.framework.hardware;
 
 import java.io.BufferedReader;
 import java.io.File;

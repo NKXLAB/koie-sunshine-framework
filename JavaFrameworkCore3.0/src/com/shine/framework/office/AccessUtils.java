@@ -1,4 +1,4 @@
-package com.shine.framework.core.util;
+package com.shine.framework.office;
 
 import java.io.File;
 import java.sql.Connection;

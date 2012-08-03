@@ -1,4 +1,4 @@
-package com.shine.framework.core.util;
+package com.shine.framework.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +19,9 @@ import org.dom4j.io.DOMReader;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+
+import com.shine.framework.core.util.DataUtil;
+import com.shine.framework.file.FileUtil;
 
 
 /**

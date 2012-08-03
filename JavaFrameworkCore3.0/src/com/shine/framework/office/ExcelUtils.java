@@ -1,4 +1,4 @@
-package com.shine.framework.core.util;
+package com.shine.framework.office;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

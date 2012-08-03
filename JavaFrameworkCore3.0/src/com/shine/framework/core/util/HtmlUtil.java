@@ -12,6 +12,8 @@ import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.PrettyXmlSerializer;
 import org.htmlcleaner.TagNode;
 
+import com.shine.framework.file.FileUtil;
+
 /**
  * html utilities
  * 
