@@ -1,4 +1,4 @@
-package com.shine.framework.core.util;
+package com.shine.framework.file;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,6 +17,9 @@ import java.net.URL;
 //import org.apache.poi.poifs.filesystem.DirectoryEntry;
 //import org.apache.poi.poifs.filesystem.DocumentEntry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+
+import com.shine.framework.core.util.DataUtil;
+import com.shine.framework.core.util.HtmlUtil;
 
 /**
  * file utilities

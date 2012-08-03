@@ -1,17 +1,16 @@
-package com.shine.framework.core.util;
+package com.shine.framework.hardware;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 
-public class BIOSUtil {
+public class MacUtil {
 	/**
-	 * 获取BIOS序列号
-	 * 
+	 * 获取网卡序列号
 	 * @return
 	 */
-	public static String getBIOSNumber() {
+	public static String getMACNumber() {
 		String result = "";
 		String vbs = null;
 		try {
@@ -21,9 +20,9 @@ public class BIOSUtil {
 			BufferedReader input = null;
 			Process p = null;
 			vbs = "Set objWMIService = GetObject(\"winmgmts:\\\\.\\root\\cimv2\")\n"
-					+ "Set colItems = objWMIService.ExecQuery(\"Select * from Win32_BIOS\") \n"
+					+ "Set colItems = objWMIService.ExecQuery(\"SELECT MACAddress FROM Win32_NetworkAdapter WHERE ((MACAddress Is Not NULL) AND (ManufaCturer <> 'MiCrosoft'))\") \n"
 					+ "For Each objItem in colItems \n"
-					+ "Wscript.Echo objItem.SerialNumber \n" + "Next \n";
+					+ "Wscript.Echo objItem.MACAddress \n" + "Next \n";
 			fw.write(vbs);
 			fw.close();
 			p = Runtime.getRuntime().exec("cscript //NoLogo " + file.getPath());
@@ -31,7 +30,7 @@ public class BIOSUtil {
 					new InputStreamReader(p.getInputStream()));
 			String line;
 			while ((line = input.readLine()) != null) {
-				result += line;
+				result += line+"\n";
 			}
 			input.close();
 		} catch (Exception ex) {
@@ -40,7 +39,7 @@ public class BIOSUtil {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(getBIOSNumber());
+	public static void main(String args[]) {
+		System.out.println(getMACNumber());
 	}
 }

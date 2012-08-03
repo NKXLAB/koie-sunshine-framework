@@ -1,4 +1,4 @@
-package com.shine.framework.core.util;
+package com.shine.framework.xml;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
