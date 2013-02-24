@@ -1,0 +1,654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"/>
+<title>如何创建 DataSource</title><link href="../zdoc.css" rel="stylesheet" type="text/css"/><link href="../_rs/site.css" rel="stylesheet" type="text/css"/><script src="../_rs/jquery.js" language="Javascript"></script><script src="../_rs/site.js" language="Javascript"></script><script src="../_rs/z.js" language="Javascript"></script>
+</head>
+<body><a name="top"></a>
+<div class="zdoc_header">如何创建 DataSource</div>
+<div class="zdoc_author"><em>By:</em><b>zozoh</b><a href="mailto:zozohtnt@gmail.com">&lt;zozohtnt@gmail.com&gt;</a><b>wendal</b><a href="mailto:wendal1985@gmail.com">&lt;wendal1985@gmail.com&gt;</a></div>
+<div class="zdoc_body">
+<ul class="zdoc_index_table">
+<li>
+<div class="zdoc_folder"><span class="num">1</span><a href="#何为DataSource">何为DataSource</a></div>
+<ul>
+<li>
+<div><span class="num">1.1</span><a href="#先看看JDK中对DataSource的描述:">先看看JDK中对DataSource的描述:</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">2</span><a href="#这篇文档该怎么用?">这篇文档该怎么用?</a></div>
+<ul>
+<li>
+<div><span class="num">2.1</span><a href="#直接书写_Java_代码">直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">2.2</span><a href="#通过_NutzIoc_的_JSON_配置文件">通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">2.3</span><a href="#通过_NutzIoc_的_XML_配置文件">通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">2.4</span><a href="#再特别特别强调">再特别特别强调</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">3</span><a href="#内置的SimpleDataSource">内置的SimpleDataSource</a></div>
+<ul>
+<li>
+<div><span class="num">3.1</span><a href="#Nutz内置,非常适合新手!!无需额外下载其他连接池,方便尝试NutDao的功能">Nutz内置,非常适合新手!!无需额外下载其他连接池,方便尝试NutDao的功能.</a></div>
+</li>
+<li>
+<div><span class="num">3.2</span><a href="#SimpleDataSource:_直接书写_Java_代码">SimpleDataSource: 直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">3.3</span><a href="#SimpleDataSource:_通过_NutzIoc_的_JSON_配置文件">SimpleDataSource: 通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">3.4</span><a href="#SimpleDataSource:_通过_NutzIoc_的_XML_配置文件">SimpleDataSource: 通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">3.5</span><a href="#附送一个完整的NutDao配置js文件">附送一个完整的NutDao配置js文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">4</span><a href="#Druid">Druid</a></div>
+<ul>
+<li>
+<div><span class="num">4.1</span><a href="#druid_:_直接书写_Java_代码">druid : 直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">4.2</span><a href="#druid_:_通过_NutzIoc_的_JSON_配置文件">druid : 通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">4.3</span><a href="#druid:_通过_NutzIoc_的_XML_配置文件">druid: 通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">5</span><a href="#Apache_Tomcat_7_连接池">Apache Tomcat 7 连接池</a></div>
+<ul>
+<li>
+<div><span class="num">5.1</span><a href="#直接书写_Java_代码">直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">5.2</span><a href="#通过_NutzIoc_的_JSON_配置文件">通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">5.3</span><a href="#通过_NutzIoc_的_XML_配置文件">通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">6</span><a href="#Apache_DBCP">Apache DBCP</a></div>
+<ul>
+<li>
+<div><span class="num">6.1</span><a href="#dbcp:_直接书写_Java_代码">dbcp: 直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">6.2</span><a href="#dbcp:_通过_NutzIoc_的_JSON_配置文件">dbcp: 通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">6.3</span><a href="#dbcp:_通过_NutzIoc_的_XML_配置文件">dbcp: 通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">7</span><a href="#C3P0">C3P0</a></div>
+<ul>
+<li>
+<div><span class="num">7.1</span><a href="#c3p0:_直接书写_Java_代码">c3p0: 直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">7.2</span><a href="#c3p0:_通过_NutzIoc_的_JSON_配置文件">c3p0: 通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">7.3</span><a href="#c3p0:_通过_NutzIoc_的_XML_配置文件">c3p0: 通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">8</span><a href="#Proxool">Proxool</a></div>
+<ul>
+<li>
+<div><span class="num">8.1</span><a href="#proxool:_直接书写_Java_代码">proxool: 直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">8.2</span><a href="#proxool:_通过_NutzIoc_的_JSON_配置文件">proxool: 通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">8.3</span><a href="#proxool:_通过_NutzIoc_的_XML_配置文件">proxool: 通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">9</span><a href="#BoneCP">BoneCP</a></div>
+<ul>
+<li>
+<div><span class="num">9.1</span><a href="#bonecp:_直接书写_Java_代码">bonecp: 直接书写 Java 代码</a></div>
+</li>
+<li>
+<div><span class="num">9.2</span><a href="#bonecp:_通过_NutzIoc_的_JSON_配置文件">bonecp: 通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">9.3</span><a href="#bonecp:_通过_NutzIoc_的_XML_配置文件">bonecp: 通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">10</span><a href="#容器提供的连接池(JNDI)">容器提供的连接池(JNDI)</a></div>
+<ul>
+<li>
+<div><span class="num">10.1</span><a href="#Java代码方式:">Java代码方式:</a></div>
+</li>
+<li>
+<div><span class="num">10.2</span><a href="#由于是通过JNDI获取,所以不再是一个Ioc的bean,_我们只需要引用它就可以了,不需要再写dataSource的bean例如:">由于是通过JNDI获取,所以不再是一个Ioc的bean, 我们只需要引用它就可以了,不需要再写dataSource的bean.例如:</a></div>
+</li>
+</ul>
+</li>
+<li>
+<div class="zdoc_folder"><span class="num">11</span><a href="#如何使用这些配置">如何使用这些配置</a></div>
+<ul>
+<li>
+<div><span class="num">11.1</span><a href="#Java代码的方式:">Java代码的方式:</a></div>
+</li>
+<li>
+<div><span class="num">11.2</span><a href="#通过_NutzIoc_的_JSON_配置文件">通过 Nutz.Ioc 的 JSON 配置文件</a></div>
+</li>
+<li>
+<div><span class="num">11.3</span><a href="#通过_NutzIoc_的_XML_配置文件">通过 Nutz.Ioc 的 XML 配置文件</a></div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="何为DataSource"></a>何为DataSource</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="先看看JDK中对DataSource的描述:"></a>先看看JDK中对DataSource的描述:</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<ul type="disc">
+<li>作为 DriverManager 工具的替代项，DataSource 对象是获取连接的首选方法。</li>
+<li>基本实现 - 生成标准的 Connection 对象</li>
+<li>连接池实现 - 生成自动参与连接池的 Connection 对象。此实现与中间层连接池管理器一起使用。</li>
+</ul>
+<p>简单来说,就是获取数据库连接的一个通用接口, 常见的dbcp,c3p0,druid,bonecp都是DataSource的实现.</p>
+<p>NutDao也选用DataSource作为获取数据库连接的方式, 且只调用其无参数的getConnection()方法,也是大部分数据库连接池唯一支持的方法.</p>
+<div class="hr"><b></b></div>
+<h1><a name="这篇文档该怎么用?"></a>这篇文档该怎么用?</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="直接书写_Java_代码"></a>直接书写 Java 代码 </h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<ul type="disc">
+<li>如果你只是在main方法中尝试一下NutDao的功能,那么请选取Java</li>
+</ul>
+<h2><a name="通过_NutzIoc_的_JSON_配置文件"></a>通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<ul type="disc">
+<li>Nutz项目中最常见的配置方式, 由NutIoc来管理DataSource和NutDao实例</li>
+<li>特别强调, NutDao与NutIoc没有任何依赖关系, NutDao在NutIoc看来,只是普通的bean</li>
+</ul>
+<h2><a name="通过_NutzIoc_的_XML_配置文件"></a>通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<ul type="disc">
+<li>满足XML强迫症的程序猿, 功能与JSON配置文件类似</li>
+</ul>
+<h2><a name="再特别特别强调"></a>再特别特别强调</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<ul type="disc">
+<li>NutDao几乎不需要任何配置文件(只有一个nutz_jdbc_experts.js 绝大部分时间你不会遇到它!)</li>
+<li>本文说到的js/xml文件,都是NutIoc的文件,不是NutDao的配置文件!!</li>
+<li>不要重复创建DataSource,不要重复创建NutDao!!!!!!!</li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="内置的SimpleDataSource"></a>内置的SimpleDataSource</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="Nutz内置,非常适合新手!!无需额外下载其他连接池,方便尝试NutDao的功能"></a>Nutz内置,非常适合新手!!无需额外下载其他连接池,方便尝试NutDao的功能.</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<p></p>
+<ul type="disc">
+<li>不要生产环境中使用这个DataSource!!</li>
+<li>不要用它来测试NutDao的性能!!</li>
+<li>自动加载NutDao所支持的数据库的驱动(说白了就是我们认识那几款,不就Class.forName一下嘛)</li>
+<li>无额外依赖,适合新手试用</li>
+<li>非连接池,配置简单</li>
+<li>1.b.43开始提供,旧版本的Nutz可通过拷贝源文件的方式添加这个类</li>
+</ul>
+<h2><a name="SimpleDataSource:_直接书写_Java_代码"></a>SimpleDataSource: 直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import org.nutz.dao.impl.SimpleDataSource;
+
+...
+
+SimpleDataSource ds = new SimpleDataSource();
+//ds.setDriverClassName("org.postgresql.Driver"); //默认加载了大部分数据库的驱动!!
+ds.setjdbcUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUsername("demo");
+ds.setPassword("123456");
+...
+//ds.close();  // 这个DataSource不是一个连接池,所以关不关都行
+</pre>
+<p></p>
+<h2><a name="SimpleDataSource:_通过_NutzIoc_的_JSON_配置文件"></a>SimpleDataSource: 通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+		type : "org.nutz.dao.impl.SimpleDataSource",
+		fields : {
+			jdbcUrl : 'jdbc:postgresql://localhost:5432/mydatabase',
+			username : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<p></p>
+<h2><a name="SimpleDataSource:_通过_NutzIoc_的_XML_配置文件"></a>SimpleDataSource: 通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="org.nutz.dao.impl.SimpleDataSource"&gt;
+			&lt;field name="jdbcUrl"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="username"&gt;&lt;str&gt;demo&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123456&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<p></p>
+<h2><a name="附送一个完整的NutDao配置js文件"></a>附送一个完整的NutDao配置js文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<p></p>
+<pre>var ioc = {
+	dao : {
+		type : "org.nutz.dao.impl.NutDao",
+		args : [{refer:"dataSource"}]
+	},
+	dataSource : {
+		type : "org.nutz.dao.impl.SimpleDataSource",
+		fields : {
+			jdbcUrl : 'jdbc:postgresql://localhost:5432/mydatabase',
+			username : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<p></p>
+<p>如何使用这些配置? 请看文章末尾.</p>
+<div class="hr"><b></b></div>
+<h1><a name="Druid"></a>Druid</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<p>国产精品连接池,淘宝温少诚意出品,带强大的监控功能哦</p>
+<h2><a name="druid_:_直接书写_Java_代码"></a>druid : 直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import com.alibaba.druid.pool.DruidDataSource;
+
+...
+
+DruidDataSource dds = new DruidDataSource();
+dds.setDriverClassName("org.postgresql.Driver");
+dds.setUrl("jdbc:postgresql://localhost:5432/mydatabase");
+dds.setUsername("enzozhong");
+dds.setPassword("123");
+...
+dds.close();  // 关闭池内所有连接
+</pre>
+<h2><a name="druid_:_通过_NutzIoc_的_JSON_配置文件"></a>druid : 通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+        type : "com.alibaba.druid.pool.DruidDataSource",
+        events : {
+            depose : 'close'
+        },
+        fields : {
+            driverClassName : "org.postgresql.Driver",
+            url : "jdbc:postgresql://localhost:5432/mydatabase",
+            username : "enzozhong",
+            password : "123"
+        }
+    }
+}
+</pre>
+<h2><a name="druid:_通过_NutzIoc_的_XML_配置文件"></a>druid: 通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="com.alibaba.druid.pool.DruidDataSource"&gt;
+			&lt;events&gt;
+				&lt;depose&gt;close&lt;/depose&gt;
+			&lt;/events&gt;
+			&lt;field name="driverClassName"&gt;&lt;str&gt;org.postgresql.Driver&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="url"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="username"&gt;&lt;str&gt;enzozhong&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<ul type="disc">
+<li>注册了 depose 事件，当整个 Ioc 容器注销时，将 <b>真正 </b>  关闭所有池内连接</li>
+<li><a href="http://code.alibabatech.com/wiki/pages/viewpage.action?pageId=2916406">更多配置</a></li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="Apache_Tomcat_7_连接池"></a>Apache Tomcat 7 连接池</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<p>这里使用的是tomcat7新的自带连接,但是,请把其2个jar移到项目的lib中!!</p>
+<h2><a name="直接书写_Java_代码"></a>直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import org.apache.tomcat.jdbc.pool.DataSource;
+
+...
+
+DataSource ds = new DataSource();
+ds.setDriverClassName("org.postgresql.Driver");
+ds.setUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUsername("demo");
+ds.setPassword("123456");
+...
+ds.close();  // 关闭池内所有连接
+</pre>
+<h2><a name="通过_NutzIoc_的_JSON_配置文件"></a>通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+		type : "org.apache.tomcat.jdbc.pool.DataSource",
+		events : {
+			depose : 'close'
+		},
+		fields : {
+			driverClassName : 'org.postgresql.Driver',
+			url : 'jdbc:postgresql://localhost:5432/mydatabase',
+			username : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<h2><a name="通过_NutzIoc_的_XML_配置文件"></a>通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="org.apache.tomcat.jdbc.pool.DataSource"&gt;
+			&lt;events&gt;
+				&lt;depose&gt;close&lt;/depose&gt;
+			&lt;/events&gt;
+			&lt;field name="driverClassName"&gt;&lt;str&gt;org.postgresql.Driver&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="url"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="username"&gt;&lt;str&gt;demo&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123456&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<ul type="disc">
+<li>注册了 depose 事件，当整个 Ioc 容器注销时，将 <b>真正 </b>  关闭所有池内连接</li>
+<li>关于 depose 事件，更多详情请参看 <a href="../ioc/events.html">事件监听</a></li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="Apache_DBCP"></a>Apache DBCP</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="dbcp:_直接书写_Java_代码"></a>dbcp: 直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import org.apache.commons.dbcp.BasicDataSource;
+
+...
+
+BasicDataSource ds = new BasicDataSource();
+ds.setDriverClassName("org.postgresql.Driver");
+ds.setUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUsername("demo");
+ds.setPassword("123456");
+...
+ds.close();  // 关闭池内所有连接
+</pre>
+<h2><a name="dbcp:_通过_NutzIoc_的_JSON_配置文件"></a>dbcp: 通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+		type : "org.apache.commons.dbcp.BasicDataSource",
+		events : {
+			depose : 'close'
+		},
+		fields : {
+			driverClassName : 'org.postgresql.Driver',
+			url : 'jdbc:postgresql://localhost:5432/mydatabase',
+			username : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<h2><a name="dbcp:_通过_NutzIoc_的_XML_配置文件"></a>dbcp: 通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="org.apache.commons.dbcp.BasicDataSource"&gt;
+			&lt;events&gt;
+				&lt;depose&gt;close&lt;/depose&gt;
+			&lt;/events&gt;
+			&lt;field name="driverClassName"&gt;&lt;str&gt;org.postgresql.Driver&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="url"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="username"&gt;&lt;str&gt;demo&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123456&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<ul type="disc">
+<li>注册了 depose 事件，当整个 Ioc 容器注销时，将 <b>真正 </b>  关闭所有池内连接</li>
+<li>关于 depose 事件，更多详情请参看 <a href="../ioc/events.html">事件监听</a></li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="C3P0"></a>C3P0</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="c3p0:_直接书写_Java_代码"></a>c3p0: 直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+...
+
+ComboPooledDataSource ds = new ComboPooledDataSource();
+ds.setDriverClass("org.postgresql.Driver");
+ds.setJdbcUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUser("demo");
+ds.setPassword("123456");
+...
+ds.close();  // 关闭池内所有连接
+</pre>
+<h2><a name="c3p0:_通过_NutzIoc_的_JSON_配置文件"></a>c3p0: 通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+		type : "com.mchange.v2.c3p0.ComboPooledDataSource",
+		events : {
+			depose : 'close'
+		},
+		fields : {
+			driverClass : 'org.postgresql.Driver',
+			jdbcUrl : 'jdbc:postgresql://localhost:5432/mydatabase',
+			user : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<h2><a name="c3p0:_通过_NutzIoc_的_XML_配置文件"></a>c3p0: 通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="com.mchange.v2.c3p0.ComboPooledDataSource"&gt;
+			&lt;events&gt;
+				&lt;depose&gt;close&lt;/depose&gt;
+			&lt;/events&gt;
+			&lt;field name="driverClass"&gt;&lt;str&gt;org.postgresql.Driver&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="jdbcUrl"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="user"&gt;&lt;str&gt;demo&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123456&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<ul type="disc">
+<li>注册了 depose 事件，当整个 Ioc 容器注销时，将 <b>真正 </b>  关闭所有池内连接</li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="Proxool"></a>Proxool</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="proxool:_直接书写_Java_代码"></a>proxool: 直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import org.logicalcobwebs.proxool.ProxoolDataSource;
+
+...
+
+ProxoolDataSource ds = new ProxoolDataSource();
+ds.setDriver("org.postgresql.Driver");
+ds.setDriverUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUser("demo");
+ds.setPassword("123456");
+...
+</pre>
+<h2><a name="proxool:_通过_NutzIoc_的_JSON_配置文件"></a>proxool: 通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+		type : "org.logicalcobwebs.proxool.ProxoolDataSource",
+		fields : {
+			driver : 'org.postgresql.Driver',
+			driverUrl : 'jdbc:postgresql://localhost:5432/mydatabase',
+			user : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<h2><a name="proxool:_通过_NutzIoc_的_XML_配置文件"></a>proxool: 通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="org.logicalcobwebs.proxool.ProxoolDataSource"&gt;
+			&lt;field name="driver"&gt;&lt;str&gt;org.postgresql.Driver&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="driverUrl"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="user"&gt;&lt;str&gt;demo&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123456&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<ul type="disc">
+<li>Proxool 没有提供关闭所有连接的函数，不过你可以参看它的官方文档，自己写一个释放所有连接的类，配置在 Ioc 容器的 depose 事件中</li>
+<li>关于 depose 事件，更多详情请参看 <a href="../ioc/events.html">事件监听</a> - <b>通过实现一个触发器</b></li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="BoneCP"></a>BoneCP</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="bonecp:_直接书写_Java_代码"></a>bonecp: 直接书写 Java 代码</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>import com.jolbox.bonecp.BoneCPDataSource;
+
+...
+
+BoneCPDataSource ds = new BoneCPDataSource();
+ds.setDriver("org.postgresql.Driver");
+ds.setJdbcUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUsername("demo");
+ds.setPassword("123456");
+...
+
+</pre>
+<h2><a name="bonecp:_通过_NutzIoc_的_JSON_配置文件"></a>bonecp: 通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dataSource : {
+		type : "com.jolbox.bonecp.BoneCPDataSource",
+		events : {
+			depose : 'close'
+		},
+		fields : {
+			driverClass : 'org.postgresql.Driver',
+			jdbcUrl : 'jdbc:postgresql://localhost:5432/mydatabase',
+			username : 'demo',
+			password : '123456'
+		}
+	}
+}
+</pre>
+<h2><a name="bonecp:_通过_NutzIoc_的_XML_配置文件"></a>bonecp: 通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>	&lt;ioc xsi:noNamespaceSchemaLocation="nutz-ioc-0.1.xsd"&gt;
+		&lt;obj name="dataSource" type="com.jolbox.bonecp.BoneCPDataSource"&gt;
+			&lt;events&gt;
+				&lt;depose&gt;close&lt;/depose&gt;
+			&lt;/events&gt;
+			&lt;field name="driverClass"&gt;&lt;str&gt;org.postgresql.Driver&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="url"&gt;&lt;str&gt;jdbc:postgresql://localhost:5432/mydatabase&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="username"&gt;&lt;str&gt;demo&lt;/str&gt;&lt;/field&gt;
+			&lt;field name="password"&gt;&lt;str&gt;123456&lt;/str&gt;&lt;/field&gt;
+		&lt;/obj&gt;
+	&lt;/ioc&gt;
+</pre>
+<ul type="disc">
+<li>注册了 depose 事件，当整个 Ioc 容器注销时，将 <b>真正 </b>  关闭所有池内连接</li>
+</ul>
+<div class="hr"><b></b></div>
+<h1><a name="容器提供的连接池(JNDI)"></a>容器提供的连接池(JNDI)</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="Java代码方式:"></a>Java代码方式:</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<p>不写了,这个大家都懂,不懂的自己去google查. 别跟我说baidu没查到!!</p>
+<h2><a name="由于是通过JNDI获取,所以不再是一个Ioc的bean,_我们只需要引用它就可以了,不需要再写dataSource的bean例如:"></a>由于是通过JNDI获取,所以不再是一个Ioc的bean, 我们只需要引用它就可以了,不需要再写dataSource的bean.例如:</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>{
+	dao : {
+		type : "org.nutz.dao.impl.NutDao",
+		args : [{jndi:"jdbc/dataSource"}]
+	}
+}
+</pre>
+<p></p>
+<div class="hr"><b></b></div>
+<h1><a name="如何使用这些配置"></a>如何使用这些配置</h1>
+<div style="float:right;"><a href="#top">Top</a></div>
+<h2><a name="Java代码的方式:"></a>Java代码的方式:</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>//创建dataSource,以DBCP为例
+DataSource ds = new DataSource();
+ds.setDriverClassName("org.postgresql.Driver");
+ds.setUrl("jdbc:postgresql://localhost:5432/mydatabase");
+ds.setUsername("demo");
+ds.setPassword("123456");
+Dao dao = new NutDao(ds);
+
+dao.create(User.class, true);
+dao.insert(User.create("wendal","123456"));
+
+//.... ... ...
+
+//所有操作都已经完成,关闭连接池,退出系统
+ds.close();
+return;
+
+//额外提醒,NutDao是线程安全的,请不要多次创建NutDao,除非你有多个DataSource
+</pre>
+<p></p>
+<h2><a name="通过_NutzIoc_的_JSON_配置文件"></a>通过 Nutz.Ioc 的 JSON 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>//将配置信息保存到dao.js,并存放于src文件夹下
+
+Ioc ioc = new NutIoc(new JsonLoader("dao.js"));
+DataSource ds = ioc.get(DataSource.class);
+Dao dao = new NutDao(ds); //如果已经定义了dao,那么改成dao = ioc.get(Dao.class);
+
+dao.create(User.class, true);
+dao.insert(User.create("wendal","123456"));
+
+ioc.depose(); //关闭Ioc容器
+</pre>
+<h2><a name="通过_NutzIoc_的_XML_配置文件"></a>通过 Nutz.Ioc 的 XML 配置文件</h2>
+<div style="float:right;"><a href="#top">Top</a></div>
+<pre>//将配置信息保存到dao.xml,并存放于src文件夹下
+
+Ioc ioc = new NutIoc(new XmlIocLoader("dao.js"));
+DataSource ds = ioc.get(DataSource.class);
+Dao dao = new NutDao(ds); //如果已经定义了dao,那么改成dao = ioc.get(Dao.class);
+
+dao.create(User.class, true);
+dao.insert(User.create("wendal","123456"));
+
+ioc.depose(); //关闭Ioc容器
+</pre>
+<p></p>
+</div>
+<div class="zdoc_footer"><em>By:</em><b>zozoh</b><a href="mailto:zozohtnt@gmail.com">&lt;zozohtnt@gmail.com&gt;</a><b>wendal</b><a href="mailto:wendal1985@gmail.com">&lt;wendal1985@gmail.com&gt;</a></div>
+</body>
+</html>
