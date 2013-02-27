@@ -5,7 +5,7 @@ import com.shine.threadPool.util.ThreadPool;
 /**
  * 线程池入口
  * 
- * @author Ken
+ * @author viruscodecn@gmail.com
  * 
  */
 public class ThreadPoolManager {
