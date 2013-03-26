@@ -222,7 +222,6 @@ public class RelationDBSource implements RelationSource {
 		this.maxStatements = maxStatements;
 		this.maxIdleTime = maxIdleTime;
 		init();
-
 	}
 
 	@Override
