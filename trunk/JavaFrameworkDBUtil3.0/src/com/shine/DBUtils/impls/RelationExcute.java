@@ -1,14 +1,16 @@
 package com.shine.DBUtils.impls;
 
 import com.shine.DBUtils.dbSource.DataSource;
+import com.shine.DBUtils.dbSource.RelationSource;
 import com.shine.DBUtils.ifs.ExcuteIf;
 
 public class RelationExcute extends DBResult implements ExcuteIf {
 
+	private RelationSource dataSource = null;
+
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		this.dataSource = null;
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public class RelationExcute extends DBResult implements ExcuteIf {
 
 	@Override
 	public void initDataSource(DataSource dataSource) {
-		// TODO Auto-generated method stub
+		this.dataSource = (RelationSource) dataSource;
 
 	}
 
