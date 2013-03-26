@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaFramewordIO3.0"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaFrameworkCore3.0"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaFrameworkDBUtil3.0"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaFrameworkMVC3.0"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaFrameworkThreadPool3.0"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
+</classpath>

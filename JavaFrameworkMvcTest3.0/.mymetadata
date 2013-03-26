@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="JavaFrameworkMvcTest3.0"
+  id="myeclipse.1364280545846"
+  context-root="/JavaFrameworkMvcTest3.0"
+  j2ee-spec="5.0"
+  archive="JavaFrameworkMvcTest3.0.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
