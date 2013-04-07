@@ -13,37 +13,16 @@ public interface ExcuteIf {
 	/**
 	 * 初始化持数据源
 	 * 
+	 * @param jndi
+	 * @param table
+	 */
+	public void initDataSource(String jndi, String table);
+
+	/**
+	 * 初始化持数据源
+	 * 
 	 * @param dataSource
+	 * @param table
 	 */
-	public void initDataSource(DataSource dataSource);
-
-	/**
-	 * 查询操作
-	 * 
-	 * @param findOptions
-	 */
-	public void find(String... findOptions);
-
-	/**
-	 * 插入操作
-	 * 
-	 * @param datas
-	 */
-	public void save(String... datas);
-
-	/**
-	 * 删除操作
-	 * 
-	 * @param removeOptions
-	 */
-	public void remove(String... removeOptions);
-
-	/**
-	 * 更新操作
-	 * 
-	 * @param updateOptions
-	 */
-	public void update(String... updateOptions);
-
-	public void close();
+	public void initDataSource(DataSource dataSource, String table);
 }

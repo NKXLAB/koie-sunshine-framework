@@ -17,7 +17,6 @@ import com.shine.DBUtils.model.DBRowModel;
 import com.shine.framework.core.util.XmlConverUtil;
 import com.shine.framework.core.util.XmlUitl;
 
-
 public class DBResult extends ArrayList<DBRowModel> implements DBResultIf {
 
 	/**
@@ -35,6 +34,7 @@ public class DBResult extends ArrayList<DBRowModel> implements DBResultIf {
 		super();
 
 		setResultSet(rs);
+		rs = null;
 	}
 
 	/**

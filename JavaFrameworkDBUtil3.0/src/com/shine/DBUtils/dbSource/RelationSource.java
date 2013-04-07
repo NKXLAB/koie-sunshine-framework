@@ -1,6 +1,7 @@
 package com.shine.DBUtils.dbSource;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.shine.DBUtils.ifs.DBResultIf;
@@ -77,11 +78,18 @@ public interface RelationSource extends DataSource {
 	/**
 	 * 执行sql查询
 	 * 
-	 * @param jndi
 	 * @param sql
 	 * @return
 	 */
 	public DBResultIf findSql(String sql);
+
+	/**
+	 * 执行sql查询
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	public ResultSet findResultSql(String sql);
 
 	/**
 	 * 执行sql语句

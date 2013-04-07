@@ -1,0 +1,13 @@
+package com.shine.Example;
+
+public class RelationDBSelectExample {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
