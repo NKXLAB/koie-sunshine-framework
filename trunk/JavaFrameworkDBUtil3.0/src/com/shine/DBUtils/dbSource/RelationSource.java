@@ -83,13 +83,6 @@ public interface RelationSource extends DataSource {
 	 */
 	public DBResultIf findSql(String sql);
 
-	/**
-	 * 执行sql查询
-	 * 
-	 * @param sql
-	 * @return
-	 */
-	public ResultSet findResultSql(String sql);
 
 	/**
 	 * 执行sql语句

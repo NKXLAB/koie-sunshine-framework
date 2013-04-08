@@ -174,23 +174,6 @@ public class RelationDBSource implements RelationSource {
 	}
 
 	@Override
-	public ResultSet findResultSql(String sql) {
-		Connection conn = null;
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			return rs;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("执行失败sql:" + sql);
-		}
-		return null;
-	}
-
-	@Override
 	public Connection getConnection() throws Exception {
 		try {
 			return dataSource.getConnection();
