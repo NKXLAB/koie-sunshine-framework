@@ -49,17 +49,13 @@ public class RelationDBExcute extends DBResult implements RelationExcuteIf {
 	@Override
 	public void select(String... options) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("select * from where 1=1 and ");
+		sql.append("select * from ");
+		sql.append(this.table);
+		sql.append(" where 1=1 ");
 		for (String option : options) {
 			sql.append(option).append(" ");
 		}
-		try {
-			this.setResultSet(this.dataSource.findResultSql(sql.toString()));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-
-		}
+		this.toCopy(this.dataSource.findSql(sql.toString()));
 		sql = null;
 	}
 

@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Ken
  * 
  */
-public interface RelationExcuteIf extends ExcuteIf {
+public interface RelationExcuteIf extends ExcuteIf {	
 	public void insert(String... values);
 
 	public void select(String... options);

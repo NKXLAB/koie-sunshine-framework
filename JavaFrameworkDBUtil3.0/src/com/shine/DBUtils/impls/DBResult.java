@@ -105,4 +105,27 @@ public class DBResult extends ArrayList<DBRowModel> implements DBResultIf {
 		return XmlUitl.doc2String(document);
 	}
 
+	@Override
+	public List<DBRowModel> getAllRowModel() {
+		return this;
+	}
+
+	@Override
+	public List<String> getColumnName() {
+		return columnName;
+	}
+
+	@Override
+	public void toCopy(DBResultIf resultIf) {
+		this.clean();
+		this.columnName.addAll(resultIf.getColumnName());
+		this.addAll(resultIf.getAllRowModel());
+	}
+
+	@Override
+	public void clean() {
+		this.columnName.clear();
+		this.clear();
+	}
+
 }
