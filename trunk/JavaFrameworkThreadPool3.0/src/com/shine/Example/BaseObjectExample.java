@@ -1,7 +1,7 @@
-package com.shine.threadPool.Example;
+package com.shine.Example;
 
 import com.shine.threadPool.ThreadPoolManager;
-import com.shine.threadPool.Example.test.Test;
+import com.shine.Example.test.Test;
 
 /**
  * object 线程调用

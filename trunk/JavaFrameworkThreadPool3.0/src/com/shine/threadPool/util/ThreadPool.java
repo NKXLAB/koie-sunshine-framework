@@ -55,8 +55,57 @@ public class ThreadPool extends HashMap<String, SuperThread> {
 		return null;
 	}
 
-	public synchronized List<SuperThread> getTagsThread() {
-		return null;
+	/**
+	 * 用空闲线程执行源代码
+	 * 
+	 * @param code
+	 */
+	public synchronized void excuteCode(String code) {
+		for (SuperThread superThread : this.values()) {
+			if (!superThread.isBusy())
+				superThread.setCode(code);
+		}
+		if (this.size() < ThreadConfig.maxThreadSize) {
+			appendSuperThread().setCode(code);
+		}
+	}
+
+	/**
+	 * 用空闲线程执行指定类的指定方法
+	 * 
+	 * @param classPath
+	 * @param method
+	 * @param objects
+	 */
+	public synchronized void excuteReflectionValues(String classPath,
+			String method, Object... objects) {
+		for (SuperThread superThread : this.values()) {
+			if (!superThread.isBusy())
+				superThread.setReflectionValues(classPath, method, objects);
+		}
+		if (this.size() < ThreadConfig.maxThreadSize) {
+			appendSuperThread().setReflectionValues(classPath, method, objects);
+		}
+	}
+
+	/**
+	 * 执行指定对象的指定方法
+	 * 
+	 * @param objectValue
+	 * @param objectMethod
+	 * @param objectss
+	 */
+	public synchronized void excuteObjectsValue(Object objectValue,
+			String objectMethod, Object... objectss) {
+		for (SuperThread superThread : this.values()) {
+			if (!superThread.isBusy())
+				superThread
+						.setObjectsValue(objectValue, objectMethod, objectss);
+		}
+		if (this.size() < ThreadConfig.maxThreadSize) {
+			appendSuperThread().setObjectsValue(objectValue, objectMethod,
+					objectss);
+		}
 	}
 
 }

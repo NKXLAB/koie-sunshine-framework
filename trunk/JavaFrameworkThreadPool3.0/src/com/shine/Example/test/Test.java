@@ -1,4 +1,4 @@
-package com.shine.threadPool.Example.test;
+package com.shine.Example.test;
 
 public class Test {
 	public void test() {
