@@ -32,7 +32,7 @@ public class ThreadPoolManager {
 	 */
 	public boolean excuteCode(String code) {
 		try {
-			this.threadPool.getFreeThread().setCode(code);
+			this.threadPool.excuteCode(code);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,8 +51,7 @@ public class ThreadPoolManager {
 	public boolean excuteReflectionValues(String classPath, String method,
 			Object... objects) {
 		try {
-			this.threadPool.getFreeThread().setReflectionValues(classPath,
-					method, objects);
+			this.threadPool.excuteReflectionValues(classPath, method, objects);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,8 +70,8 @@ public class ThreadPoolManager {
 	public boolean excuteObjectsValue(Object objectValue, String objectMethod,
 			Object... objectss) {
 		try {
-			this.threadPool.getFreeThread().setObjectsValue(objectValue,
-					objectMethod, objectss);
+			this.threadPool.excuteObjectsValue(objectValue, objectMethod,
+					objectss);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,5 +109,14 @@ public class ThreadPoolManager {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	/**
+	 * 获取线程数量
+	 * 
+	 * @return
+	 */
+	public int getThreadPoolSize() {
+		return this.threadPool.size();
 	}
 }

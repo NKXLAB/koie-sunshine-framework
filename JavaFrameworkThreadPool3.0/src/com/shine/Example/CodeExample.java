@@ -1,4 +1,4 @@
-package com.shine.threadPool.Example;
+package com.shine.Example;
 
 import com.shine.threadPool.ThreadPoolManager;
 
