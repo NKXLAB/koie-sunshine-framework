@@ -61,13 +61,33 @@ public class RelationDBExcute extends DBResult implements RelationExcuteIf {
 
 	@Override
 	public void delete(String... options) {
-		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from ");
+		sql.append(this.table);
+		sql.append(" where 1=1 ");
+		for (String option : options) {
+			sql.append(option).append(" ");
+		}
+		this.dataSource.excuteSql(sql.toString());
+		sql = null;
 
 	}
 
 	@Override
-	public void update(Map map, String... options) {
-		// TODO Auto-generated method stub
+	public void update(Map<String, String> map, String... options) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("update ");
+		sql.append(this.table);
+		sql.append(" set ");
+		for (String key : map.keySet()) {
+			sql.append(key + "='" + map.get(key) + "' ");
+		}
+		sql.append(" where 1=1 ");
+		for (String option : options) {
+			sql.append(option).append(" ");
+		}
+		this.dataSource.excuteSql(sql.toString());
+		sql = null;
 
 	}
 }
